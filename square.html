@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 50px;
+    }
+
+    td {
+        border: 1px solid #000;
+        padding: 15px;
+        text-align: center;
+        width: 20%;
+        cursor: pointer;
+    }
+
+    .marked {
+        background-color: #00ff00;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #F0F0F0;
+    }
+
+    h1 {
+        text-align: center;
+        padding: 20px 0;
+    }
+    </style>
+</head>
+<body onload="generateBingoCard()">
+    <h1>Lamar's FastX Birthday Bingo</h1>
+    <table id="bingoCard"></table>
+
+    <script>
+    function generateBingoCard() {
+        var bingoCard = document.getElementById('bingoCard');
+        var items = [
+            '"Family" Mentioned',
+            '"Ride or Die"',
+            'Vehicle Crashes Through a Building',
+            'BBQ Party Scene',
+            'Surprise Return of Old Character',
+            'Street Race Scene',
+            'Use of NOS',
+            'Toast with Corona Beer',
+            'Character Wears a Tank Top',
+            '"I Don\'t Have Friends, I Got Family"',
+            'Villain Becomes Ally',
+            'New Exotic Location',
+            'Vehicle Gets Destroyed',
+            'Heist Scene',
+            'Flashback Sequence',
+            'Brian Mentioned',
+            '"Last Job" Mentioned',
+            'Car Goes Airborne',
+            'Operates Two Vehicles at Once',
+            'Impromptu Race Scene',
+            'Respect Talk',
+            'Slow Motion Car',
+            'Dramatic Chase Scene',
+            'Heart-to-Heart in Garage'
+        ];
+
+        // Shuffle the items array
+        for (let i = items.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [items[i], items[j]] = [items[j], items[i]];
+        }
+
+        // Generate the bingo card
+        for (var i = 0; i < 5; i++) {
+            var row = document.createElement('tr');
+            for (var j = 0; j < 5; j++) {
+                var cell = document.createElement('td');
+                if (i === 2 && j === 2) {
+                    cell.textContent = 'Unbelievable Car Stunt (Free Space)';
+                } else {
+                    cell.textContent = items[i*5 + j - ((i>2) || (i > 1 && j > 2) ? 1 : 0)];
+                }
+                cell.onclick = function() {
+                    this.classList.toggle('marked');
+                };
+                row.appendChild(cell);
+            }
+            bingoCard.appendChild(row);
+        }
+    }
+    </script>
+</body>
+</html>
